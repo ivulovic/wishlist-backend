@@ -71,6 +71,7 @@ module.exports = {
     const { url } = req.value.body;
     const browser = await puppeteer.launch({
       headless: true,
+      args: ["--no-sandbox"],
       defaultViewport: {
         width: 1920,
         height: 1050,
