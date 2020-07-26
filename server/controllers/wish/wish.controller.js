@@ -81,7 +81,7 @@ module.exports = {
 
     const page = await browser.newPage();
     await page.goto(url, {
-      timeout: 20000,
+      timeout: 60000,
       waitUntil: ["networkidle0"],
     });
 
