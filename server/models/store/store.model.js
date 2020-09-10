@@ -1,13 +1,17 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require('mongoose');
+const { connectionString } = require("../../connections/wishlist.connection");
+const conn = mongoose.createConnection(connectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+const Schema = mongoose.Schema;
 
 const StoreSchema = new Schema({
   name: String,
   logo: String,
   origin: String,
 
-  // selectors
-  // sizeSelector: String,
-  // colorSelector: String,
   titleSelector: String,
   imageSelector: String,
 
@@ -31,4 +35,14 @@ const StoreSchema = new Schema({
   modifiedAt: Number,
 });
 
-module.exports = model("store", StoreSchema);
+
+
+
+const modelName = 'store';
+const collectionName = 'stores';
+
+mongoose.model(modelName, StoreSchema, collectionName);
+
+const StoreModel = conn.model(modelName, collectionName);
+
+module.exports = StoreModel;

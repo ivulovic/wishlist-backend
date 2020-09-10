@@ -1,5 +1,7 @@
 const puppeteer = require("puppeteer");
-const { WishModel, StoreModel, AccountModel } = require("../../models");
+const StoreModel = require("../../models/store/store.model");
+const WishModel = require("../../models/wish/wish.model");
+const AccountModel = require("../../models/account/account.model");
 
 const fs = require("fs");
 const https = require("https");
@@ -43,9 +45,10 @@ module.exports = {
   },
   listForUser: async (req, res) => {
     const { id } = req.value.body;
-    const user = await AccountModel.findOne({ username: id ? id.toLowerCase() : "" });
+    const user = await AccountModel.findOne({ email: id ? id.toLowerCase() : "" });
+    const l = await AccountModel.find();
     if (!user) {
-      return res.status(403).json({ status: 403, message: "User with such username does not exist." });
+      return res.status(403).json({ status: 403, message: "User with such E-mail does not exist." });
     }
     const arr = await WishModel.find({ createdBy: user._id }, { _id: 0, modifiedBy: 0, createdBy: 0, __v: 0 }).populate("store", "-_id name origin logo", "store").sort("-modifiedAt");
     res.status(200).send(arr);

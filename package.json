@@ -2,13 +2,18 @@
   "name": "wishlists",
   "version": "1.0.0",
   "description": "wishlists",
+  "main": "app.js",
   "author": {
     "name": "vukily",
     "twitter": "@vukily",
     "url": "https://vukily.com"
   },
+  "pkg": {
+    "scripts": "node_modules/puppeteer/lib/*.js"
+  },
   "license": "MIT",
   "scripts": {
+    "build": "pkg app.js --target node12-linux-x64 --out-path ./build",
     "start": "nodemon server.js"
   },
   "dependencies": {

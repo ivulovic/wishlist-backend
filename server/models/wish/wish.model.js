@@ -1,9 +1,17 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const { connectionString } = require("../../connections/wishlist.connection");
+const conn = mongoose.createConnection(connectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+conn.once("open", () => {
+  console.log("Wishlist, Connected to Database Successfully.")
+});
 
 const WishSchema = new Schema({
   url: String,
-  // size: String,
-  // color: String,
   title: String,
   image: String,
   oldPrice: String,
@@ -26,4 +34,12 @@ const WishSchema = new Schema({
   modifiedAt: Number,
 });
 
-module.exports = model("wish", WishSchema);
+
+const modelName = 'wish';
+const collectionName = 'wishes';
+
+mongoose.model(modelName, WishSchema, collectionName);
+
+const WishModel = conn.model(modelName, collectionName);
+
+module.exports = WishModel;

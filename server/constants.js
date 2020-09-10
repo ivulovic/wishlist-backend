@@ -1,6 +1,4 @@
 module.exports = {
-  dbProd: "mongodb://<username>:<password>@<origin>/<dbName>",
-  dbDev: "mongodb://localhost:27017/wishlists",
   routes: "./server/routes/",
-  secret: "kfskbe98ee98ds34347gffmfhfk3dsvdsgdsedsad7stvkfshfs6mfsiihflgf",
+  secret: process.env.NODE_ENV === "production" ? process.env.TOKEN_SECRET : "53jkdj9843953fsfwertyuibvhdjkdfdfd"
 };
